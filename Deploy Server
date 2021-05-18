@@ -1,14 +1,14 @@
 Download Latest Ubuntu Live Server ISO: https://ubuntu.com/download/server
 Launch KVM:
-  - Go to IDrac address
+  - Open Browser and go to IDrac address
   - Attach Virtual Media and launch KVM
   - In KVM screen, go to toolbar and choose launch virtual media
   - Import Ubuntu live ISO file
   - Map Virtual Device (Don't exit the window after Mapping)
 Reboot server: 
  	- Go to terminal and switch to the root privilege: 
- 					+ sudo su
- 					+ type administrator password
+ 		+ sudo su
+ 		+ type administrator password
 	- Reboot
 When booting: 
 	- Press F11 to access bios boot manager
@@ -22,38 +22,38 @@ Create partition:
 	- Remove all logical volume or volume group
 	- Reformat hardisk
 	- Divide partition like bellow: 
-	    + choose the biggest capacity for cinder
-			+	boot: mount as /boot; size 1G; xfs
-			+ var: mount as /var; size 300G; ext4 (size depend on hardware capacity, recommend 30-40% of total)
-			+ /: mount as /; size above 100G; ext4
-			+ swap: choose filesystem as swap, size <30G (depend on RAM)
-			+ Spend all of remain capacity for cinder volume (left unmount and unformatted)
+	        + Choose the biggest capacity for cinder
+		+ boot: mount as /boot; size 1G; xfs
+		+ var: mount as /var; size 300G; ext4 (size depend on hardware capacity, recommend 30-40% of total)
+		+ /: mount as /; size above 100G; ext4
+		+ swap: choose filesystem as swap, size <30G (depend on RAM)
+		+ Spend all of remain capacity for cinder volume (left unmount and unformatted)
 Notice: don't update or connect to internet because it will take more time to install
 Press done and wait till installation finish. Then reboot (eject installation media first)
 Config network as file Configure Network
 Check connect to internal and internet through ping command: 
-			#ping 8.8.8.8 -I eno3
+		#ping 8.8.8.8 -I eno3
 Change DNS server to 8.8.8.8
-			#vi /etc/resolv.conf
+		#vi /etc/resolv.conf
 Update source list file: 
-			#sudo su
-			#apt update
+		#sudo su
+		#apt update
 Install ssh: 
-			#apt install -y ssh
+		#apt install -y ssh
 Install net-tools
-			#apt install -y net-tools
+		#apt install -y net-tools
 Update time-zone
-			#timedatectl set-timezone Asia/Ho_Chi_Minh\
+		#timedatectl set-timezone Asia/Ho_Chi_Minh\
 #On the node has cinder-volume:
 Make new volume group for cinder:
 	- Create new partition:
    		#fdisk /dev/sda , press n, create a partition follow instruction question
    		after done press w to save (Assume that we make new partition sda6)
 	- Change type of partition to Linux LVM
-			#fdisk /dev/sda
-			press t -> choose partition -> 8e
-			It will prompt if it success or not
+		#fdisk /dev/sda
+		press t -> choose partition -> 8e
+		It will prompt if it success or not
 	- Make new physical volume:
-			#pvcreate /dev/sda6
+		#pvcreate /dev/sda6
 	- Make new volume group
-			#vgcreate cinder-volumes /dev/sda6
+		#vgcreate cinder-volumes /dev/sda6
