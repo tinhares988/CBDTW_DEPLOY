@@ -2,8 +2,8 @@
 On server: 
 #Config bond 2 or more interface if you want to add more subnet to VMs
 Edit file 00-installer-config.yaml in /etc/netplan as below: 
-			#sudo su
-			#vi /etc/netplan/00-installer-config.yaml
+	#sudo su
+	#vi /etc/netplan/00-installer-config.yaml
 # This is the network config written by 'subiquity'
 network:
     version: 2
@@ -27,38 +27,38 @@ network:
             mode: 802.3ad
             mii-monitor-interval: 100
 Apply change:
-				#sudo su
-				#netplan apply
+	#sudo su
+	#netplan apply
 On Switch Layer2: 
 #Detect which interface on switch connect coresponding with interface eno1, eno2, eno3
 #Assume that eno1, eno2, eno3 connect with interface gi0/0, gi0/1, gi0/2
 #Detect which interface on switch connect with switch Layer3/router: (assume gi0/10)
 Config VLAN: 
-	-	Add vlan on sw layer 2: 
-				#vlan 170
-			  #vlan 171
-				#vlan 60
-				#vlan 90
-				 ...
+	- Add vlan on sw layer 2: 
+		#vlan 170
+		#vlan 171
+		#vlan 60
+		#vlan 90
+		 ...
 	- Add IP interface VLAN (optional) (According LLD)
-			  #interface vlan +"vlan ID"
-			  #ip address + "IP" + "subnet mask"
-	-	Config mode trunk for interface gi0/0, gi0/1, gi0/10
-				#interface range gi0/0-1
-				#no shut
-				#switchport trunk encapsulation dot1Q
-				#switchport mode trunk
-				#channel group 20 mode active
-				#exit
-				#interface gi0/10
-				#switchport trunk encapsulation dot1Q
-				#switchport mode trunk
-				#interface port-channel 20
-				#switchport trunk encapsulation dot1Q
-				#switchport mode trunk
-	-	Config mode access for interface gi0/2
-				#interface gi0/10
-				#switchport mode access
-				#switchport access vlan 60
+	        #interface vlan +"vlan ID"
+	        #ip address + "IP" + "subnet mask"
+	- Config mode trunk for interface gi0/0, gi0/1, gi0/10
+	        #interface range gi0/0-1
+		#no shut
+		#switchport trunk encapsulation dot1Q
+		#switchport mode trunk
+		#channel group 20 mode active
+		#exit
+		#interface gi0/10
+		#switchport trunk encapsulation dot1Q
+		#switchport mode trunk
+		#interface port-channel 20
+		#switchport trunk encapsulation dot1Q
+		#switchport mode trunk
+	- Config mode access for interface gi0/2
+		#interface gi0/10
+		#switchport mode access
+		#switchport access vlan 60
 				
 				
