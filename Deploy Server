@@ -6,7 +6,7 @@ Launch KVM:
   - Import Ubuntu live ISO file
   - Map Virtual Device (Don't exit the window after Mapping)
 Reboot server: 
- 	-	Go to terminal and switch to the root privilege: 
+ 	- Go to terminal and switch to the root privilege: 
  					+ sudo su
  					+ type administrator password
 	- Reboot
@@ -15,11 +15,11 @@ When booting:
 	- When it launched to Bios boot manager, press down button to "Virtual CD"
  	- Wait until device boot into Setup environment
 After booting into Setup environment
-  -	Wait device checking integrity 
+  - Wait device checking integrity 
   - Follow intruction to install 
 Create partition:
-	-	Choose Custom partition layout
-	-	Remove all logical volume or volume group
+	- Choose Custom partition layout
+	- Remove all logical volume or volume group
 	- Reformat hardisk
 	- Divide partition like bellow: 
 	    + choose the biggest capacity for cinder
@@ -30,3 +30,30 @@ Create partition:
 			+ Spend all of remain capacity for cinder volume (left unmount and unformatted)
 Notice: don't update or connect to internet because it will take more time to install
 Press done and wait till installation finish. Then reboot (eject installation media first)
+Config network as file Configure Network
+Check connect to internal and internet through ping command: 
+			#ping 8.8.8.8 -I eno3
+Change DNS server to 8.8.8.8
+			#vi /etc/resolv.conf
+Update source list file: 
+			#sudo su
+			#apt update
+Install ssh: 
+			#apt install -y ssh
+Install net-tools
+			#apt install -y net-tools
+Update time-zone
+			#timedatectl set-timezone Asia/Ho_Chi_Minh\
+#On the node has cinder-volume:
+Make new volume group for cinder:
+	- Create new partition:
+   		#fdisk /dev/sda , press n, create a partition follow instruction question
+   		after done press w to save (Assume that we make new partition sda6)
+	- Change type of partition to Linux LVM
+			#fdisk /dev/sda
+			press t -> choose partition -> 8e
+			It will prompt if it success or not
+	- Make new physical volume:
+			#pvcreate /dev/sda6
+	- Make new volume group
+			#vgcreate cinder-volumes /dev/sda6
