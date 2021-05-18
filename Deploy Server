@@ -1,1 +1,32 @@
-
+Download Latest Ubuntu Live Server ISO: https://ubuntu.com/download/server
+Launch KVM:
+  - Go to IDrac address
+  - Attach Virtual Media and launch KVM
+  - In KVM screen, go to toolbar and choose launch virtual media
+  - Import Ubuntu live ISO file
+  - Map Virtual Device (Don't exit the window after Mapping)
+Reboot server: 
+ 	-	Go to terminal and switch to the root privilege: 
+ 					+ sudo su
+ 					+ type administrator password
+	- Reboot
+When booting: 
+	- Press F11 to access bios boot manager
+	- When it launched to Bios boot manager, press down button to "Virtual CD"
+ 	- Wait until device boot into Setup environment
+After booting into Setup environment
+  -	Wait device checking integrity 
+  - Follow intruction to install 
+Create partition:
+	-	Choose Custom partition layout
+	-	Remove all logical volume or volume group
+	- Reformat hardisk
+	- Divide partition like bellow: 
+	    + choose the biggest capacity for cinder
+			+	boot: mount as /boot; size 1G; xfs
+			+ var: mount as /var; size 300G; ext4 (size depend on hardware capacity, recommend 30-40% of total)
+			+ /: mount as /; size above 100G; ext4
+			+ swap: choose filesystem as swap, size <30G (depend on RAM)
+			+ Spend all of remain capacity for cinder volume (left unmount and unformatted)
+Notice: don't update or connect to internet because it will take more time to install
+Press done and wait till installation finish. Then reboot (eject installation media first)
