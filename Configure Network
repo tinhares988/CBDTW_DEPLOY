@@ -30,7 +30,7 @@ Apply change:
 	#sudo su
 	#netplan apply
 On Switch Layer2: 
-#Detect which interface on switch connect coresponding with interface eno1, eno2, eno3
+#Detect which interface on switch correspondingly connect with interface eno1, eno2, eno3
 #Assume that eno1, eno2, eno3 connect with interface gi0/0, gi0/1, gi0/2
 #Detect which interface on switch connect with switch Layer3/router: (assume gi0/10)
 Config VLAN: 
